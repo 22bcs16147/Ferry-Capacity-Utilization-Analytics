@@ -42,8 +42,20 @@ capacity utilization and idle periods.
 # Sidebar Filters
 # -----------------------------------------------------
 
-st.sidebar.header("Filters")
+st.sidebar.header("Dashboard Filters")
 
+# Date Range Filter
+min_date = df["Timestamp"].min().date()
+max_date = df["Timestamp"].max().date()
+
+date_range = st.sidebar.date_input(
+    "Select Date Range",
+    [min_date, max_date],
+    min_value=min_date,
+    max_value=max_date
+)
+
+# Year Filter
 years = sorted(df["Year"].unique())
 
 selected_year = st.sidebar.multiselect(
@@ -52,32 +64,81 @@ selected_year = st.sidebar.multiselect(
     default=years
 )
 
-seasons = sorted(df["Season"].unique())
+# Month Filter
+month_order = [
+    "January","February","March","April",
+    "May","June","July","August",
+    "September","October","November","December"
+]
+
+selected_month = st.sidebar.multiselect(
+    "Select Month",
+    month_order,
+    default=month_order
+)
+
+# Season Filter
+season_order = ["Winter", "Spring", "Summer", "Autumn"]
 
 selected_season = st.sidebar.multiselect(
     "Select Season",
-    seasons,
-    default=seasons
+    season_order,
+    default=season_order
 )
 
-timebands = sorted(df["Time Band"].unique())
+# Time Band Filter
+timeband_order = ["Morning", "Afternoon", "Evening", "Night"]
 
 selected_timeband = st.sidebar.multiselect(
     "Select Time Band",
-    timebands,
-    default=timebands
+    timeband_order,
+    default=timeband_order
 )
 
-filtered_df = df[
-    (df["Year"].isin(selected_year))
-    &
-    (df["Season"].isin(selected_season))
-    &
-    (df["Time Band"].isin(selected_timeband))
+# Weekend Filter
+selected_week = st.sidebar.multiselect(
+    "Week Type",
+    ["Weekday", "Weekend"],
+    default=["Weekday", "Weekend"]
+)
+
+# -----------------------------------------------------
+# Apply Filters
+# -----------------------------------------------------
+
+filtered_df = df.copy()
+
+if len(date_range) == 2:
+    start_date, end_date = date_range
+
+    filtered_df = filtered_df[
+        (filtered_df["Timestamp"].dt.date >= start_date)
+        &
+        (filtered_df["Timestamp"].dt.date <= end_date)
+    ]
+
+filtered_df = filtered_df[
+    filtered_df["Year"].isin(selected_year)
+]
+
+filtered_df = filtered_df[
+    filtered_df["Month Name"].isin(selected_month)
+]
+
+filtered_df = filtered_df[
+    filtered_df["Season"].isin(selected_season)
+]
+
+filtered_df = filtered_df[
+    filtered_df["Time Band"].isin(selected_timeband)
+]
+
+filtered_df = filtered_df[
+    filtered_df["Weekend"].isin(selected_week)
 ]
 
 # -----------------------------------------------------
-# KPI Cards
+# KPI Calculations
 # -----------------------------------------------------
 
 total_sales = filtered_df["Sales Count"].sum()
@@ -86,28 +147,69 @@ total_redemption = filtered_df["Redemption Count"].sum()
 
 total_activity = filtered_df["Total Activity Load"].sum()
 
-average_load = filtered_df["Operational Load Index"].mean()
+capacity_utilization = (
+    total_redemption / total_sales * 100
+    if total_sales > 0 else 0
+)
+
+idle_capacity = (
+    (filtered_df["Idle Capacity Indicator"] == "Idle").mean() * 100
+)
+
+average_oli = filtered_df["Operational Load Index"].mean()
+
+peak_activity = filtered_df["Total Activity Load"].max()
+
+average_redemption_ratio = filtered_df["Redemption Pressure Ratio"].mean()
+
+# -----------------------------------------------------
+# KPI Cards
+# -----------------------------------------------------
 
 col1, col2, col3, col4 = st.columns(4)
 
 col1.metric(
-    "Total Sales",
+    "🎫 Total Sales",
     f"{total_sales:,.0f}"
 )
 
 col2.metric(
-    "Total Redemption",
+    "🚢 Total Redemptions",
     f"{total_redemption:,.0f}"
 )
 
 col3.metric(
-    "Total Activity",
+    "📊 Total Activity",
     f"{total_activity:,.0f}"
 )
 
 col4.metric(
-    "Average OLI",
-    f"{average_load:.2f}"
+    "⚙ Capacity Utilization",
+    f"{capacity_utilization:.2f}%"
+)
+
+st.markdown("")
+
+col5, col6, col7, col8 = st.columns(4)
+
+col5.metric(
+    "💤 Idle Capacity",
+    f"{idle_capacity:.2f}%"
+)
+
+col6.metric(
+    "📈 Avg Operational Load",
+    f"{average_oli:.2f}"
+)
+
+col7.metric(
+    "🔥 Peak Activity",
+    f"{peak_activity:,.0f}"
+)
+
+col8.metric(
+    "🎟 Avg Redemption Ratio",
+    f"{average_redemption_ratio:.2f}"
 )
 
 # -----------------------------------------------------

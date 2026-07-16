@@ -3,6 +3,7 @@ import pandas as pd
 
 from filters import apply_filters
 from kpi import show_kpis
+from insights import show_insights
 
 from charts import (
     yearly_activity_chart,
@@ -12,7 +13,7 @@ from charts import (
     weekend_chart,
     hourly_chart,
     operational_load_chart,
-    redemption_ratio_chart
+    redemption_ratio_chart,
 )
 
 # -------------------------------------------------------
@@ -33,7 +34,6 @@ st.set_page_config(
 def load_data():
 
     df = pd.read_csv("data/processed/ferry_processed.csv")
-
     df["Timestamp"] = pd.to_datetime(df["Timestamp"])
 
     return df
@@ -48,13 +48,13 @@ df = load_data()
 st.title("⛴️ Ferry Capacity Utilization & Operational Efficiency Dashboard")
 
 st.markdown("""
-This dashboard analyzes Toronto Island Ferry ticket activity to identify
-capacity utilization, passenger demand, congestion patterns,
-operational efficiency and idle periods.
+This dashboard analyzes Toronto Island Ferry ticket activity to understand
+capacity utilization, operational efficiency, passenger demand,
+congestion patterns and idle periods.
 """)
 
 # -------------------------------------------------------
-# Apply Filters
+# Sidebar Filters
 # -------------------------------------------------------
 
 filtered_df = apply_filters(df)
@@ -71,47 +71,55 @@ st.divider()
 # Charts
 # -------------------------------------------------------
 
-col1, col2 = st.columns(2)
+left, right = st.columns(2)
 
-with col1:
+with left:
     yearly_activity_chart(filtered_df)
 
-with col2:
+with right:
     monthly_activity_chart(filtered_df)
 
-col3, col4 = st.columns(2)
+left, right = st.columns(2)
 
-with col3:
+with left:
     seasonal_chart(filtered_df)
 
-with col4:
+with right:
     timeband_chart(filtered_df)
 
-col5, col6 = st.columns(2)
+left, right = st.columns(2)
 
-with col5:
+with left:
     weekend_chart(filtered_df)
 
-with col6:
+with right:
     hourly_chart(filtered_df)
 
-col7, col8 = st.columns(2)
+left, right = st.columns(2)
 
-with col7:
+with left:
     operational_load_chart(filtered_df)
 
-with col8:
+with right:
     redemption_ratio_chart(filtered_df)
 
+st.divider()
+
 # -------------------------------------------------------
-# Download Filtered Dataset
+# Business Insights
 # -------------------------------------------------------
 
+show_insights(filtered_df)
+
 st.divider()
+
+# -------------------------------------------------------
+# Download Dataset
+# -------------------------------------------------------
 
 st.download_button(
     label="📥 Download Filtered Data",
     data=filtered_df.to_csv(index=False),
     file_name="filtered_ferry_data.csv",
-    mime="text/csv"
+    mime="text/csv",
 )

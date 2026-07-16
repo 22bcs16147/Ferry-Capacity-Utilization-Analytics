@@ -1,8 +1,7 @@
+print("KPI FILE LOADED:", __file__)
 import streamlit as st
 
-
 def show_kpis(df):
-
     total_sales = df["Sales Count"].sum()
 
     total_redemption = df["Redemption Count"].sum()

@@ -702,6 +702,45 @@ st.dataframe(
     width="stretch"
 )
 # -----------------------------------------------------
+# Yearly Performance Ranking
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("🏅 Yearly Performance Ranking")
+
+yearly_rank = (
+    filtered_df.groupby("Year")["Total Activity Load"]
+    .sum()
+    .reset_index()
+)
+
+yearly_rank = yearly_rank.sort_values(
+    by="Total Activity Load",
+    ascending=False
+)
+
+fig = px.bar(
+    yearly_rank,
+    x="Year",
+    y="Total Activity Load",
+    color="Total Activity Load",
+    text="Total Activity Load",
+    title="Yearly Passenger Activity Ranking"
+)
+
+fig.update_traces(textposition="outside")
+
+st.plotly_chart(
+    fig,
+    width="stretch"
+)
+
+st.dataframe(
+    yearly_rank,
+    width="stretch"
+)
+
+# -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------
 

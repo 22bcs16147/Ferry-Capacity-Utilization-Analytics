@@ -739,7 +739,43 @@ st.dataframe(
     yearly_rank,
     width="stretch"
 )
+# -----------------------------------------------------
+# Activity Heatmap
+# -----------------------------------------------------
 
+st.markdown("---")
+st.subheader("🔥 Activity Heatmap (Month vs Hour)")
+
+heatmap_df = (
+    filtered_df.groupby(["Month Name", "Hour"])["Total Activity Load"]
+    .sum()
+    .reset_index()
+)
+
+month_order = [
+    "January","February","March","April",
+    "May","June","July","August",
+    "September","October","November","December"
+]
+
+heatmap_df["Month Name"] = pd.Categorical(
+    heatmap_df["Month Name"],
+    categories=month_order,
+    ordered=True
+)
+
+heatmap_df = heatmap_df.sort_values("Month Name")
+
+fig = px.density_heatmap(
+    heatmap_df,
+    x="Hour",
+    y="Month Name",
+    z="Total Activity Load",
+    color_continuous_scale="Viridis",
+    title="Passenger Activity Heatmap"
+)
+
+st.plotly_chart(fig, width="stretch")
 # -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------

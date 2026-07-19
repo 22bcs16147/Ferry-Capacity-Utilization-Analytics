@@ -557,6 +557,59 @@ col2.metric(
     status
 )
 # -----------------------------------------------------
+# Congestion Analysis
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("🚦 Congestion Analysis")
+
+congestion = (
+    filtered_df.groupby("Hour")["Total Activity Load"]
+    .sum()
+    .reset_index()
+)
+
+high_limit = congestion["Total Activity Load"].quantile(0.75)
+low_limit = congestion["Total Activity Load"].quantile(0.25)
+
+
+def congestion_level(activity):
+
+    if activity >= high_limit:
+        return "High"
+
+    elif activity >= low_limit:
+        return "Moderate"
+
+    else:
+        return "Low"
+
+
+congestion["Congestion Level"] = congestion[
+    "Total Activity Load"
+].apply(congestion_level)
+
+fig = px.bar(
+    congestion,
+    x="Hour",
+    y="Total Activity Load",
+    color="Congestion Level",
+    title="Hourly Congestion Analysis",
+    text="Total Activity Load"
+)
+
+fig.update_traces(textposition="outside")
+
+st.plotly_chart(
+    fig,
+    width="stretch"
+)
+
+st.dataframe(
+    congestion,
+    width="stretch"
+)
+# -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------
 

@@ -857,3 +857,20 @@ st.download_button(
     file_name="filtered_ferry_data.csv",
     mime="text/csv"
 )
+# -----------------------------------------------------
+# Footer
+# -----------------------------------------------------
+
+st.markdown("---")
+
+st.caption(
+"""
+🚢 **Ferry Capacity Utilization & Operational Efficiency Analytics System**
+
+Developed using **Python, Pandas, Plotly, Streamlit**
+
+This dashboard provides operational insights, congestion analysis,
+capacity utilization trends and passenger activity analytics for
+Toronto Island Ferry Services.
+"""
+)

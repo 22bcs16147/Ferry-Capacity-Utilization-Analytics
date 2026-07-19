@@ -366,6 +366,41 @@ st.dataframe(
     width="stretch"
 )
 # -----------------------------------------------------
+# Top 10 Least Busy Hours
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("🌙 Top 10 Least Busy Hours")
+
+least_hours = (
+    filtered_df.groupby("Hour")["Total Activity Load"]
+    .sum()
+    .sort_values(ascending=True)
+    .head(10)
+    .reset_index()
+)
+
+fig = px.bar(
+    least_hours,
+    x="Hour",
+    y="Total Activity Load",
+    color="Total Activity Load",
+    text="Total Activity Load",
+    title="Top 10 Least Busy Operating Hours"
+)
+
+fig.update_traces(textposition="outside")
+
+st.plotly_chart(
+    fig,
+    width="stretch"
+)
+
+st.dataframe(
+    least_hours,
+    width="stretch"
+)
+# -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------
 

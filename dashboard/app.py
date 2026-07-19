@@ -438,6 +438,43 @@ st.dataframe(
     width="stretch"
 )
 # -----------------------------------------------------
+# Top 10 Least Busy Days
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("📅 Top 10 Least Busy Days")
+
+least_days = (
+    filtered_df.groupby(filtered_df["Timestamp"].dt.date)["Total Activity Load"]
+    .sum()
+    .sort_values(ascending=True)
+    .head(10)
+    .reset_index()
+)
+
+least_days.columns = ["Date", "Total Activity Load"]
+
+fig = px.bar(
+    least_days,
+    x="Date",
+    y="Total Activity Load",
+    color="Total Activity Load",
+    text="Total Activity Load",
+    title="Top 10 Least Busy Days"
+)
+
+fig.update_traces(textposition="outside")
+
+st.plotly_chart(
+    fig,
+    width="stretch"
+)
+
+st.dataframe(
+    least_days,
+    width="stretch"
+)
+# -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------
 

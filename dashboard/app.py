@@ -31,9 +31,29 @@ df = load_data()
 st.title("⛴️ Ferry Capacity Utilization & Operational Efficiency Dashboard")
 
 st.markdown("""
-This dashboard analyzes Toronto Island Ferry ticket activity
-to identify operational efficiency, congestion patterns,
-capacity utilization and idle periods.
+### 📊 Dashboard Overview
+
+The Ferry Capacity Utilization & Operational Efficiency Dashboard provides real-time analytical insights into Toronto Island Ferry operations through eight core operational KPIs and interactive visualizations.
+
+**Key Performance Indicators**
+
+• 🎫 Total Ticket Sales
+
+• 🚢 Total Ticket Redemptions
+
+• 📊 Total Passenger Activity
+
+• ⚙ Capacity Utilization Rate
+
+• 💤 Idle Capacity Percentage
+
+• 📈 Average Operational Load Index
+
+• 🔥 Peak Passenger Activity
+
+• 🎟 Redemption Pressure Ratio
+
+These metrics support operational monitoring, passenger demand analysis, congestion detection, capacity planning, and strategic resource optimization.
 """)
 
 # -----------------------------------------------------

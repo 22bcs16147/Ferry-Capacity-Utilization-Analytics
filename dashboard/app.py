@@ -663,6 +663,44 @@ with col2:
 
 ⚙ Capacity Utilization: **{capacity_utilization:.2f}%**
 """)
+    # -----------------------------------------------------
+# Monthly Growth Analysis
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("📈 Monthly Growth Analysis")
+
+monthly_growth = (
+    filtered_df.groupby(["Year", "Month", "Month Name"])["Total Activity Load"]
+    .sum()
+    .reset_index()
+)
+
+monthly_growth = monthly_growth.sort_values(["Year", "Month"])
+
+monthly_growth["Growth %"] = (
+    monthly_growth["Total Activity Load"]
+    .pct_change() * 100
+)
+
+fig = px.line(
+    monthly_growth,
+    x="Month Name",
+    y="Growth %",
+    color="Year",
+    markers=True,
+    title="Month-over-Month Growth (%)"
+)
+
+st.plotly_chart(
+    fig,
+    width="stretch"
+)
+
+st.dataframe(
+    monthly_growth,
+    width="stretch"
+)
 # -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------

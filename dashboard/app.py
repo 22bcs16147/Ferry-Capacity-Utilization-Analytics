@@ -522,6 +522,41 @@ st.dataframe(
     width="stretch"
 )
 # -----------------------------------------------------
+# Operational Efficiency Score
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("⚙ Operational Efficiency Score")
+
+efficiency_score = (
+    capacity_utilization * 0.5
+    + (100 - idle_capacity) * 0.3
+    + (average_redemption_ratio * 100) * 0.2
+)
+
+efficiency_score = min(efficiency_score, 100)
+
+if efficiency_score >= 85:
+    status = "🟢 Excellent"
+
+elif efficiency_score >= 70:
+    status = "🟡 Good"
+
+else:
+    status = "🔴 Needs Improvement"
+
+col1, col2 = st.columns(2)
+
+col1.metric(
+    "Operational Efficiency Score",
+    f"{efficiency_score:.2f}/100"
+)
+
+col2.metric(
+    "Operational Status",
+    status
+)
+# -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------
 

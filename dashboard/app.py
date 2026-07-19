@@ -331,6 +331,76 @@ st.plotly_chart(
     ),
     use_container_width=True
 )
+# -----------------------------------------------------
+# Business Insights
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("📈 Business Insights & Recommendations")
+
+# Peak Hour
+peak_hour = (
+    filtered_df.groupby("Hour")["Total Activity Load"]
+    .sum()
+    .idxmax()
+)
+
+# Least Busy Hour
+least_busy_hour = (
+    filtered_df.groupby("Hour")["Total Activity Load"]
+    .sum()
+    .idxmin()
+)
+
+# Busiest Month
+busiest_month = (
+    filtered_df.groupby("Month Name")["Total Activity Load"]
+    .sum()
+    .idxmax()
+)
+
+# Least Busy Month
+least_busy_month = (
+    filtered_df.groupby("Month Name")["Total Activity Load"]
+    .sum()
+    .idxmin()
+)
+
+# Capacity Status
+if capacity_utilization >= 90:
+    capacity_status = "High Utilization"
+elif capacity_utilization >= 70:
+    capacity_status = "Optimal Utilization"
+else:
+    capacity_status = "Under Utilized"
+
+st.success(f"""
+### Executive Insights
+
+• Peak operating hour: **{peak_hour}:00**
+
+• Least busy hour: **{least_busy_hour}:00**
+
+• Highest passenger demand month: **{busiest_month}**
+
+• Lowest passenger demand month: **{least_busy_month}**
+
+• Overall Capacity Status: **{capacity_status}**
+""")
+
+st.info("""
+### Operational Recommendations
+
+✅ Increase ferry frequency during peak hours.
+
+✅ Optimize staffing during weekends and summer months.
+
+✅ Reduce idle ferry deployment during low-demand periods.
+
+✅ Monitor operational load continuously to improve passenger experience.
+
+✅ Use historical trends for seasonal planning and resource allocation.
+""")
 
 # -----------------------------------------------------
 # Download Button

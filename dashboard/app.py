@@ -169,6 +169,85 @@ c5.metric("💤 Idle Capacity", f"{idle_capacity:.2f}%")
 c6.metric("📈 Avg Operational Load", f"{average_oli:.3f}")
 c7.metric("🔥 Peak Activity", f"{peak_activity:,.0f}")
 c8.metric("🎟 Redemption Ratio", f"{average_redemption_ratio:.2f}")
+# -----------------------------------------------------
+# Executive Summary
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("📌 Executive Summary")
+
+# Analysis Period
+analysis_start = filtered_df["Timestamp"].min().date()
+analysis_end = filtered_df["Timestamp"].max().date()
+
+# Total Years
+total_years = filtered_df["Year"].nunique()
+
+# Busiest Year
+busiest_year = (
+    filtered_df.groupby("Year")["Total Activity Load"]
+    .sum()
+    .idxmax()
+)
+
+# Busiest Season
+busiest_season = (
+    filtered_df.groupby("Season")["Total Activity Load"]
+    .sum()
+    .idxmax()
+)
+
+# Peak Hour
+peak_hour = (
+    filtered_df.groupby("Hour")["Total Activity Load"]
+    .sum()
+    .idxmax()
+)
+
+# Average Daily Activity
+daily_activity = (
+    filtered_df.groupby(filtered_df["Timestamp"].dt.date)["Total Activity Load"]
+    .sum()
+    .mean()
+)
+
+summary1, summary2, summary3 = st.columns(3)
+
+summary1.info(
+    f"""
+**Analysis Period**
+
+{analysis_start}
+
+to
+
+{analysis_end}
+"""
+)
+
+summary2.success(
+    f"""
+**Coverage**
+
+Years Covered: **{total_years}**
+
+Busiest Year: **{busiest_year}**
+"""
+)
+
+summary3.warning(
+    f"""
+**Operations**
+
+Peak Hour: **{peak_hour}:00**
+
+Busiest Season: **{busiest_season}**
+
+Average Daily Activity: **{daily_activity:,.0f}**
+"""
+)
+
+st.markdown("---")
 
 # -----------------------------------------------------
 # Charts

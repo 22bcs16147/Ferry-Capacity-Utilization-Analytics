@@ -475,6 +475,53 @@ st.dataframe(
     width="stretch"
 )
 # -----------------------------------------------------
+# Monthly Performance Ranking
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("🏆 Monthly Performance Ranking")
+
+monthly_ranking = (
+    filtered_df.groupby("Month Name")["Total Activity Load"]
+    .sum()
+    .reindex(month_order)
+    .reset_index()
+)
+
+monthly_ranking = monthly_ranking.sort_values(
+    by="Total Activity Load",
+    ascending=False
+).reset_index(drop=True)
+
+monthly_ranking.index = monthly_ranking.index + 1
+monthly_ranking.rename_axis("Rank", inplace=True)
+monthly_ranking.reset_index(inplace=True)
+
+
+def performance_label(value):
+
+    if value >= monthly_ranking["Total Activity Load"].quantile(0.75):
+        return "Excellent"
+
+    elif value >= monthly_ranking["Total Activity Load"].quantile(0.50):
+        return "Good"
+
+    elif value >= monthly_ranking["Total Activity Load"].quantile(0.25):
+        return "Average"
+
+    else:
+        return "Low"
+
+
+monthly_ranking["Performance"] = monthly_ranking[
+    "Total Activity Load"
+].apply(performance_label)
+
+st.dataframe(
+    monthly_ranking,
+    width="stretch"
+)
+# -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------
 

@@ -610,6 +610,60 @@ st.dataframe(
     width="stretch"
 )
 # -----------------------------------------------------
+# Peak Demand Summary
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("📊 Peak Demand Summary")
+
+peak_day = (
+    filtered_df.groupby(filtered_df["Timestamp"].dt.date)["Total Activity Load"]
+    .sum()
+    .idxmax()
+)
+
+peak_day_activity = (
+    filtered_df.groupby(filtered_df["Timestamp"].dt.date)["Total Activity Load"]
+    .sum()
+    .max()
+)
+
+peak_month = (
+    filtered_df.groupby("Month Name")["Total Activity Load"]
+    .sum()
+    .idxmax()
+)
+
+peak_season = (
+    filtered_df.groupby("Season")["Total Activity Load"]
+    .sum()
+    .idxmax()
+)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.info(f"""
+### Peak Demand
+
+📅 Peak Day: **{peak_day}**
+
+🕒 Peak Hour: **{peak_hour}:00**
+
+📈 Activity: **{peak_day_activity:,.0f}**
+""")
+
+with col2:
+    st.success(f"""
+### Seasonal Demand
+
+📆 Peak Month: **{peak_month}**
+
+🌞 Peak Season: **{peak_season}**
+
+⚙ Capacity Utilization: **{capacity_utilization:.2f}%**
+""")
+# -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------
 

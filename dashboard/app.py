@@ -263,7 +263,7 @@ st.plotly_chart(
         markers=True,
         title="Yearly Activity Trend"
     ),
-    use_container_width=True
+    width="stretch"
 )
 
 monthly = (
@@ -280,7 +280,7 @@ st.plotly_chart(
         y="Total Activity Load",
         title="Monthly Activity"
     ),
-    use_container_width=True
+    width="stretch"
 )
 
 season = filtered_df.groupby("Season")["Total Activity Load"].sum().reset_index()
@@ -292,7 +292,7 @@ st.plotly_chart(
         values="Total Activity Load",
         title="Seasonal Activity"
     ),
-    use_container_width=True
+    width="stretch"
 )
 
 band = filtered_df.groupby("Time Band")["Total Activity Load"].sum().reset_index()
@@ -304,7 +304,7 @@ st.plotly_chart(
         y="Total Activity Load",
         title="Activity by Time Band"
     ),
-    use_container_width=True
+   width="stretch"
 )
 
 week = filtered_df.groupby("Weekend")["Total Activity Load"].sum().reset_index()
@@ -316,7 +316,7 @@ st.plotly_chart(
         y="Total Activity Load",
         title="Weekend vs Weekday"
     ),
-    use_container_width=True
+    width="stretch"
 )
 
 hour = filtered_df.groupby("Hour")["Total Activity Load"].sum().reset_index()
@@ -329,7 +329,41 @@ st.plotly_chart(
         markers=True,
         title="Hourly Activity"
     ),
-    use_container_width=True
+width="stretch")
+# -----------------------------------------------------
+# Top 10 Busiest Hours
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("🕒 Top 10 Busiest Hours")
+
+top_hours = (
+    filtered_df.groupby("Hour")["Total Activity Load"]
+    .sum()
+    .sort_values(ascending=False)
+    .head(10)
+    .reset_index()
+)
+
+fig = px.bar(
+    top_hours,
+    x="Hour",
+    y="Total Activity Load",
+    color="Total Activity Load",
+    text="Total Activity Load",
+    title="Top 10 Peak Operating Hours"
+)
+
+fig.update_traces(textposition="outside")
+
+st.plotly_chart(
+    fig,
+    width="stretch"
+)
+
+st.dataframe(
+    top_hours,
+    width="stretch"
 )
 # -----------------------------------------------------
 # Business Insights

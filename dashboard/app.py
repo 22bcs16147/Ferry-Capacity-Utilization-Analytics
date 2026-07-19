@@ -401,6 +401,43 @@ st.dataframe(
     width="stretch"
 )
 # -----------------------------------------------------
+# Top 10 Busiest Days
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("📅 Top 10 Busiest Days")
+
+daily_activity = (
+    filtered_df.groupby(filtered_df["Timestamp"].dt.date)["Total Activity Load"]
+    .sum()
+    .sort_values(ascending=False)
+    .head(10)
+    .reset_index()
+)
+
+daily_activity.columns = ["Date", "Total Activity Load"]
+
+fig = px.bar(
+    daily_activity,
+    x="Date",
+    y="Total Activity Load",
+    color="Total Activity Load",
+    text="Total Activity Load",
+    title="Top 10 Busiest Days"
+)
+
+fig.update_traces(textposition="outside")
+
+st.plotly_chart(
+    fig,
+    width="stretch"
+)
+
+st.dataframe(
+    daily_activity,
+    width="stretch"
+)
+# -----------------------------------------------------
 # Business Insights
 # -----------------------------------------------------
 

@@ -878,6 +878,48 @@ st.download_button(
     mime="text/csv"
 )
 # -----------------------------------------------------
+# Passenger Demand Forecast
+# -----------------------------------------------------
+
+st.markdown("---")
+st.subheader("🔮 Passenger Demand Forecast (Next 30 Days)")
+
+forecast = pd.read_csv("assets/forecast/forecast_results.csv")
+
+forecast["ds"] = pd.to_datetime(forecast["ds"])
+
+future_forecast = forecast.tail(30)
+
+fig = px.line(
+    future_forecast,
+    x="ds",
+    y="yhat",
+    title="Predicted Passenger Demand - Next 30 Days",
+    markers=True
+)
+
+fig.update_layout(
+    xaxis_title="Date",
+    yaxis_title="Predicted Passenger Activity"
+)
+
+st.plotly_chart(
+    fig,
+    width="stretch"
+)
+
+st.dataframe(
+    future_forecast,
+    width="stretch"
+)
+
+st.download_button(
+    label="📥 Download Forecast",
+    data=future_forecast.to_csv(index=False),
+    file_name="30_day_forecast.csv",
+    mime="text/csv"
+)
+# -----------------------------------------------------
 # Footer
 # -----------------------------------------------------
 

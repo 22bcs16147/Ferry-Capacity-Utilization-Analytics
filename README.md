@@ -1,329 +1,193 @@
 # ⛴️ Ferry Capacity Utilization & Operational Efficiency Analytics System
 
+An end-to-end Data Analytics project that analyzes Toronto Island Ferry ticket activity to evaluate operational efficiency, passenger demand, capacity utilization, and forecasting. The project combines data preprocessing, exploratory data analysis, interactive dashboarding, and time-series forecasting to generate actionable business insights.
+
+---
+
+## 🌐 Live Demo
+
+**🚀 Streamlit Dashboard:**  
+https://ferry-capacity-utilization-analytics-nidhi.streamlit.app/
+
+**💻 GitHub Repository:**  
+https://github.com/22bcs16147/Ferry-Capacity-Utilization-Analytics
+
+---
+
 ## 📌 Project Overview
 
-The **Ferry Capacity Utilization & Operational Efficiency Analytics System** is an end-to-end Data Analytics project developed to analyze Toronto Island Ferry ticket activity and evaluate operational performance. The project transforms raw ticket transaction data into actionable business insights through data preprocessing, exploratory data analysis, interactive dashboards, KPI monitoring, and passenger demand forecasting.
+This project analyzes over **261,000 ferry ticket records** to understand passenger traffic, identify operational bottlenecks, measure capacity utilization, and forecast future demand.
 
-An interactive **Streamlit dashboard** enables users to analyze historical ferry operations using multiple filters, visualize passenger demand trends, monitor operational efficiency, and support data-driven decision-making for resource planning.
-
----
-
-# 🎯 Business Problem
-
-Ferry transportation experiences significant fluctuations in passenger demand depending on season, weekdays, weekends, holidays, and time of day. Without proper analysis, ferry operators may face:
-
-- Underutilized ferry capacity
-- Passenger congestion during peak hours
-- Inefficient staff allocation
-- Increased operational costs
-- Poor passenger experience
-
-This project helps identify operational bottlenecks and provides analytical insights for optimizing ferry services.
+The dashboard enables stakeholders to monitor ferry operations, improve resource allocation, optimize schedules, and support data-driven decision-making.
 
 ---
 
-# 🎯 Project Objectives
+## 🎯 Project Objectives
 
-- Analyze historical ferry ticket activity.
-- Measure operational efficiency using business KPIs.
-- Identify passenger demand trends.
-- Detect idle operational periods.
-- Measure ferry capacity utilization.
-- Perform seasonal and time-based analysis.
-- Forecast future passenger demand using Facebook Prophet.
-- Support operational planning through data-driven insights.
+- Analyze ferry passenger activity across multiple years.
+- Measure operational efficiency using key performance indicators.
+- Identify peak demand periods and idle capacity.
+- Monitor seasonal and hourly passenger trends.
+- Forecast passenger demand for the next 30 days.
+- Support operational planning through interactive visualizations.
 
 ---
 
-# 📂 Dataset Information
+## 📊 Dashboard Features
 
-| Attribute | Details |
-|-----------|----------|
-| Dataset | Toronto Island Ferry Ticket Activity |
-| Time Period | 2015 – 2025 |
-| Granularity | 15-minute intervals |
-| Records | 261,538+ |
-| Source | Toronto Open Data |
+### Key Performance Indicators (KPIs)
+
+- 🎫 Total Sales
+- 🚢 Total Redemption
+- 📊 Total Activity Load
+- ⚙️ Capacity Utilization
+- 💤 Idle Capacity
+- 📈 Average Operational Load Index
+- 🔥 Peak Activity
+- 🎟️ Redemption Pressure Ratio
+
+### Interactive Filters
+
+- Date Range
+- Year
+- Month
+- Season
+- Time Band
+- Weekday / Weekend
+
+### Visualizations
+
+- Yearly Activity Trend
+- Monthly Passenger Activity
+- Seasonal Activity Distribution
+- Activity by Time Band
+- Weekend vs Weekday Analysis
+- Hourly Activity Trend
+
+### Business Insights
+
+- Peak Operating Hour
+- Least Busy Hour
+- Busiest Month
+- Least Busy Month
+- Capacity Utilization Status
+- Operational Recommendations
 
 ---
 
-# 🛠️ Technology Stack
+## 🔮 Forecasting
+
+Passenger demand forecasting is implemented using **Facebook Prophet**.
+
+The forecasting module predicts the next **30 days** of passenger demand, helping operators improve staffing, scheduling, and resource allocation.
+
+---
+
+## 🛠️ Tech Stack
 
 - Python
 - Pandas
 - NumPy
 - Plotly
 - Streamlit
-- Prophet (Facebook Prophet)
+- Prophet
+- Matplotlib
+- Scikit-learn
+- OpenPyXL
 - Git
 - GitHub
-- VS Code
 
 ---
 
-# 📁 Project Structure
+## 📂 Project Structure
 
-```text
+```
 Ferry-Capacity-Utilization-Analytics
 │
-├── assets
-│   ├── charts
-│   ├── forecast
-│   └── screenshots
-│
-├── dashboard
+├── dashboard/
 │   └── app.py
 │
-├── data
-│   ├── raw
-│   └── processed
-│
-├── src
+├── src/
 │   ├── data_understanding.py
 │   ├── feature_engineering.py
 │   ├── exploratory_analysis.py
-│   ├── forecasting.py
-│   └── kpi_analysis.py
+│   ├── kpi_analysis.py
+│   └── forecasting.py
 │
-├── requirements.txt
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── assets/
+│   ├── charts/
+│   └── forecast/
+│
+├── screenshots/
+│
 ├── README.md
-├── LICENSE
-└── .gitignore
+├── requirements.txt
+└── LICENSE
 ```
 
 ---
 
-# 🔄 Project Workflow
+## 📷 Dashboard Screenshots
 
-```
-Raw Dataset
-      │
-      ▼
-Data Understanding
-      │
-      ▼
-Data Cleaning
-      │
-      ▼
-Feature Engineering
-      │
-      ▼
-Exploratory Data Analysis
-      │
-      ▼
-KPI Analysis
-      │
-      ▼
-Interactive Streamlit Dashboard
-      │
-      ▼
-Passenger Demand Forecasting
-      │
-      ▼
-Business Insights & Recommendations
-```
+### Main Dashboard
+
+(Add your dashboard screenshot here)
+
+### Forecasting
+
+(Add your forecasting chart screenshot here)
 
 ---
 
-# 📊 Dashboard Features
+## 🚀 Installation
 
-The interactive Streamlit dashboard includes:
-
-- Interactive Date Range Filter
-- Year Filter
-- Month Filter
-- Season Filter
-- Time Band Filter
-- Weekday vs Weekend Filter
-- Executive Summary
-- Business Insights
-- Download Filtered Dataset
-- Interactive Plotly Visualizations
-
----
-
-# 📈 Key Performance Indicators (KPIs)
-
-The dashboard monitors the following operational KPIs:
-
-| KPI | Value |
-|------|--------|
-| 🎫 Total Sales | **12,972,051** |
-| 🚢 Total Redemption | **12,785,293** |
-| 📊 Total Activity Load | **25,757,344** |
-| ⚙️ Capacity Utilization | **98.56%** |
-| 💤 Idle Capacity | **44.86%** |
-| 📈 Average Operational Load Index | **0.007** |
-| 🔥 Peak Activity | **14,445** |
-| 🎟️ Redemption Pressure Ratio | **1.29** |
-
----
-
-# 📉 Exploratory Data Analysis
-
-The project performs comprehensive exploratory analysis including:
-
-- Yearly Passenger Activity
-- Monthly Trends
-- Seasonal Analysis
-- Hourly Passenger Demand
-- Weekend vs Weekday Comparison
-- Time Band Analysis
-- Passenger Activity Distribution
-- Operational Load Analysis
-
----
-
-# 🔮 Passenger Demand Forecasting
-
-The project uses the **Facebook Prophet** forecasting model to predict passenger demand for the next **30 days**.
-
-### Forecast Outputs
-
-- Forecast Visualization
-- Forecast Results CSV
-- Interactive HTML Forecast Dashboard
-
-The forecasting model helps ferry operators anticipate future passenger demand and improve operational planning.
-
----
-
-# 💡 Business Insights
-
-The dashboard automatically identifies:
-
-- Peak operating hours
-- Least busy operating hours
-- Highest demand months
-- Lowest demand months
-- Capacity utilization status
-- Seasonal demand patterns
-- Passenger activity trends
-
----
-
-# ✅ Operational Recommendations
-
-Based on the analysis, the following recommendations are provided:
-
-- Increase ferry frequency during peak demand periods.
-- Optimize staffing during weekends and summer seasons.
-- Reduce idle ferry deployment during low-demand hours.
-- Monitor operational load continuously.
-- Utilize historical trends for seasonal planning.
-- Improve ferry scheduling based on passenger demand forecasts.
-
----
-
-# 📷 Dashboard Screenshots
-
-## Dashboard Home
-
-![Dashboard](assets/screenshots/dashboard_home.png)
-
----
-
-## KPI Dashboard
-
-![KPIs](assets/screenshots/kpi_cards.png)
-
----
-
-## Dashboard Filters
-
-![Filters](assets/screenshots/filters.png)
-
----
-
-## Interactive Charts
-
-![Charts](assets/screenshots/charts.png)
-
----
-
-## Business Insights
-
-![Insights](assets/screenshots/business_insights.png)
-
----
-
-## Passenger Demand Forecast
-
-![Forecast](assets/screenshots/forecast.png)
-
----
-
-# 🚀 Installation
-
-Clone the repository:
+Clone the repository
 
 ```bash
 git clone https://github.com/22bcs16147/Ferry-Capacity-Utilization-Analytics.git
 ```
 
-Navigate to the project directory:
+Move into the project
 
 ```bash
 cd Ferry-Capacity-Utilization-Analytics
 ```
 
-Install dependencies:
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Launch the Streamlit Dashboard:
+Run the application
 
 ```bash
 streamlit run dashboard/app.py
 ```
 
-Run Passenger Forecasting:
+---
 
-```bash
-python src/forecasting.py
-```
+## 📈 Key Business Insights
+
+- Capacity utilization exceeds 98%, indicating highly efficient ferry operations.
+- Passenger demand peaks during summer and weekends.
+- Idle capacity is concentrated during off-peak periods.
+- Peak-hour analysis supports optimized ferry scheduling.
+- Demand forecasting enables proactive operational planning.
 
 ---
 
-# 📌 Project Outcomes
-
-- Built a complete end-to-end analytics solution.
-- Designed an interactive business dashboard using Streamlit.
-- Developed multiple operational KPIs.
-- Automated passenger demand forecasting.
-- Generated business recommendations using data analytics.
-- Improved operational decision support through visualization and forecasting.
-
----
-
-# 🔮 Future Enhancements
-
-- Live API Integration
-- Real-time Passenger Monitoring
-- Weather Data Integration
-- Machine Learning Forecasting Models
-- Route Optimization Algorithms
-- Automated Operational Alerts
-- Mobile Dashboard Support
-
----
-
-# 👤 Author
+## 👩‍💻 Author
 
 **Nidhi**
 
-Data Analyst | Python | SQL | Power BI | Streamlit | Machine Learning
+GitHub:
+https://github.com/22bcs16147
 
 ---
 
-# ⭐ Support
-
-If you found this project helpful, consider giving it a ⭐ on GitHub.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
+## ⭐ If you found this project useful, consider giving it a star!

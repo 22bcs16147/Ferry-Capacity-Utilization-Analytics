@@ -3,6 +3,15 @@
 An end-to-end Data Analytics project that analyzes Toronto Island Ferry ticket activity to evaluate operational efficiency, passenger demand, capacity utilization, and forecasting. The project combines data preprocessing, exploratory data analysis, interactive dashboarding, and time-series forecasting to generate actionable business insights.
 
 ---
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
+
+![Streamlit](https://img.shields.io/badge/Streamlit-Deployed-red?logo=streamlit)
+
+![License](https://img.shields.io/badge/License-MIT-green)
+
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+
+![Made With](https://img.shields.io/badge/Made%20With-Plotly-orange)
 
 ## 🌐 Live Demo
 

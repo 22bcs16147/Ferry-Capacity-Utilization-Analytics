@@ -338,3 +338,10 @@ Your support and feedback are greatly appreciated.
 ## 📄 License
 
 This project is licensed under the **MIT License**.
+
+## 📄 Research Paper
+
+The complete research paper explaining the project methodology, dashboard development, KPI analysis, forecasting model, results, and business recommendations is available below.
+
+**Research Paper:**  
+📄 [Ferry Capacity Utilization & Operational Efficiency Analytics System](research_paper/Ferry_Capacity_Research_Paper.pdf)
